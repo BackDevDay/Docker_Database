@@ -1,0 +1,32 @@
+version: "3.8"
+services: 
+    mysql:
+        container_name: mysql
+        build: ./mySQL
+        ports:
+            - 9001:3306
+        volumes:
+            - ./mySQL/volumes:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: 12345678
+            MYSQL_USER: user
+            MYSQL_PASSWORD: 12345678
+            # MYSQL_DATABASE:
+            TZ: Asia/Bangkok
+        restart: always
+
+    portainer:
+        container_name: portainer
+        image: portainer/portainer
+        ports:
+            - 9000:9000
+        volumes: 
+            - /var/run/docker.sock:/var/run/docker.sock
+        environment:
+            TZ: Asia/Bangkok
+        restart: always
+
+networks:
+    default:
+        external:
+            name: DB-Networks
