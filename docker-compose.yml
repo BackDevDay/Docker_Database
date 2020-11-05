@@ -1,5 +1,22 @@
 version: "3.8"
 services: 
+
+
+    # mongo 4.4.1
+    mongo:
+        container_name: mongoDB
+        build: ./mongo
+        ports:
+            - 9002:27017
+        volumes:
+            - ./mongo/volumes:/data/db
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: 12345678
+            TZ: Asia/Bangkok
+        restart: always
+
+    # mysql 8.0.22
     mysql:
         container_name: mysql
         build: ./mySQL
