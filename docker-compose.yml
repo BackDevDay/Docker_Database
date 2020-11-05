@@ -1,6 +1,36 @@
 version: "3.8"
 services: 
+    
+    # mssql
+    mssql:
+        container_name: mssql
+        image: mcr.microsoft.com/mssql/server:2019-CU8-ubuntu-16.04
+        ports:
+            - 9004:1433
+        environment:
+            ACCEPT_EULA: Y
+            SA_PASSWORD: Test123456!
+            TZ: Asia/Bangkok
+        restart: always
 
+    # PostgreSQL 13.0
+    postgresql:
+        container_name: postgresql
+        build: ./postgresql
+        ports:
+            - 9003:5432
+        volumes:
+            - ./postgresql/volumes:/var/lib/postgresql/data
+        environment:
+            POSTGRES_PASSWORD: 12345678
+            # POSTGRES_USER: 
+            # POSTGRES_DB:
+            # POSTGRES_INITDB_ARGS:
+            # POSTGRES_INITDB_WALDIR:
+            # POSTGRES_HOST_AUTH_METHOD:
+            # PGDATA:
+            TZ: Asia/Bangkok
+        restart: always
 
     # mongo 4.4.1
     mongo:
